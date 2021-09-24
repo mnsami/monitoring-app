@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+    nginx:
+        build: docker/nginx
+        restart: on-failure
+        volumes:
+            - ${PWD}/api:/var/www/api:delegated
+            - ${PWD}/var/logs/nginx/:/var/log/nginx:delegated
+            - ${PWD}/docker/nginx/api.conf:/etc/nginx/conf.d/api.conf:delegated
+            - ${PWD}/docker/nginx/ui.conf:/etc/nginx/conf.d/ui.conf:delegated
+        ports:
+            - "90:80"
+        networks:
+            - monitoring
+
+    api:
+        build: docker/php
+        restart: on-failure
+        volumes:
+            - ${PWD}/api:/var/www/api:delegated
+            - ${PWD}/docker/php/php.ini:/usr/local/etc/php/php.ini:ro
+        networks:
+            - monitoring
+        depends_on: 
+            - nginx
+
+    ui:
+      build: ./ui
+      restart: on-failure
+      command: "npm start"
+      depends_on:
+        - api
+      networks:
+        - monitoring
+      volumes:
+        - ${PWD}/ui:/var/www/ui:delegated
+        - nodemodules:/var/www/ui/node_modules
+      ports:
+      - "3000:3000"
+
+networks:
+    monitoring:
+        driver: bridge
+
+# volumes
+volumes:
+  nodemodules: {}
