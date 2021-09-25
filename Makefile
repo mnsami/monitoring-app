@@ -1,3 +1,4 @@
+-include api/Makefile
 DOCKER_COMPOSE = docker-compose
 PROJECT = "Monitoring App"
 COMPOSE_PROJECT_NAME ?= $(notdir $(shell pwd))
@@ -6,7 +7,7 @@ COMPOSE_PROJECT_NAME ?= $(notdir $(shell pwd))
 help:
 	@ echo "Usage: make <target>\n"
 	@ echo "Available targets:\n"
-	@ cat Makefile tellow-voting-api/Makefile | grep -oE "^[^: ]+:" | grep -oE "[^:]+" | grep -Ev "help|default|.PHONY"
+	@ cat Makefile api/Makefile | grep -oE "^[^: ]+:" | grep -oE "[^:]+" | grep -Ev "help|default|.PHONY"
 
 container-stop:
 	@echo "\n==> Stopping docker container"
