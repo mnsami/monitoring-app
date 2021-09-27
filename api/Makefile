@@ -5,8 +5,6 @@ PHP_CMD = php
 PHP_SERVICE = api
 CMD := docker-compose exec $(PHP_SERVICE)
 
-all: clear lint-composer composer-install lint-php lint-json lint-yaml lint-eol phpcs
-
 composer-install:
 	@echo "\n==> Running composer install, runner $(RUNNER)"
 	$(CMD) $(COMPOSER) install
@@ -51,4 +49,4 @@ phpcbf:
 	@echo "\n==> Fixing styling errors"
 	$(CMD) vendor/bin/phpcbf
 
-.PHONY: all composer-install cc clear lint lint-eol lint-composer lint-json lint-php lint-yaml phpcbf phpcs
+.PHONY: composer-install cc clear lint lint-eol lint-composer lint-json lint-php lint-yaml phpcbf phpcs

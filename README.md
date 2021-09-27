@@ -17,7 +17,13 @@ I have developed this app part of a blog series tutorial on how to build a painl
 
 ## Installation
 
-- run `make container-up`
+- run `make all`
+
+Above command will:
+
+1. Create and build the docker containers.
+2. Install composer dependencies.
+3. Do linting checks.
 
 ## Running
 

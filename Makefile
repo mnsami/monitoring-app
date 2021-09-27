@@ -27,4 +27,6 @@ container-up:
 
 tear-down: container-stop container-down container-remove
 
-.PHONY: help container-down container-remove container-stop container-up
+all: clear container-up composer-install lint-composer lint-php lint-json lint-yaml lint-eol phpcs
+
+.PHONY: help all container-down container-remove container-stop container-up
